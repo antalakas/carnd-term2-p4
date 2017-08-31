@@ -1,6 +1,8 @@
 #ifndef PID_H
 #define PID_H
 
+#include <vector>
+
 class PID {
 public:
   /*
@@ -23,7 +25,20 @@ public:
   // Sum of cte used by integral parameter
   double int_cte;
 
-  /*
+  // twiddle ->
+  std::vector<double> p;
+  std::vector<double> dp;
+  double tol;
+  double error;
+  double best_error;
+  double counter;
+  double threshold;
+  bool descend_reverse;
+  // <- twiddle
+
+  int J;
+
+/*
   * Constructor
   */
   PID();
@@ -52,6 +67,12 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  void Twiddle();
+
+private:
+  void apply_twiddle();
+  double twiddle_sum(std::vector<double> &v);
 };
 
 #endif /* PID_H */
