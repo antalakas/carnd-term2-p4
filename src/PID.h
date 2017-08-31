@@ -17,6 +17,12 @@ public:
   double Ki;
   double Kd;
 
+  // Initial cte, used by differential parameter
+  double previous_cte;
+
+  // Sum of cte used by integral parameter
+  double int_cte;
+
   /*
   * Constructor
   */
@@ -31,6 +37,11 @@ public:
   * Initialize PID.
   */
   void Init(double Kp, double Ki, double Kd);
+
+  /*
+  * Update the PID error variables given cross track error.
+  */
+  double CalculateSteer(double cte);
 
   /*
   * Update the PID error variables given cross track error.
